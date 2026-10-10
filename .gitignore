@@ -41,3 +41,10 @@ uploads/*
 .env.local
 .env.*.local
 !.env.example
+
+### Database Local Data ###
+smartclinic-db/data/
+db/data/
+**/data/#*
+**/data/*.err
+**/data/*.pid
