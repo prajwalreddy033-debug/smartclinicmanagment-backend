@@ -1,0 +1,9 @@
+target/
+smartclinic-db/
+docs/
+.git/
+.gitignore
+.env
+*.log
+.vscode/
+.idea/
