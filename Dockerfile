@@ -25,9 +25,9 @@ RUN mkdir -p uploads/lab-reports
 # Copy built JAR from build stage
 COPY --from=build /app/target/*.jar app.jar
 
-# Render injects the PORT environment variable dynamically
+# Expose both local default port (8070) and Render default port (10000)
 ENV PORT=8070
-EXPOSE 8070
+EXPOSE 8070 10000
 
-# Run Spring Boot application
-ENTRYPOINT ["java", "-Djava.security.egd=file:/dev/./urandom", "-jar", "app.jar"]
+# Run Spring Boot with container memory optimization (stays within Render 512MB RAM) and dynamic PORT
+ENTRYPOINT ["sh", "-c", "java -XX:+UseContainerSupport -XX:MaxRAMPercentage=75.0 -Xss512k -Dserver.port=${PORT:-8070} -Djava.security.egd=file:/dev/./urandom -jar app.jar"]
