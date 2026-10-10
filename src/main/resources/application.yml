@@ -1,0 +1,41 @@
+server:
+  port: ${PORT:8070}
+
+spring:
+  application:
+    name: smartclinic-backend
+  datasource:
+    url: ${SPRING_DATASOURCE_URL:jdbc:mysql://localhost:3306/smartclinic_db?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true}
+    username: ${DB_USERNAME:clinic_user}
+    password: ${DB_PASSWORD:clinic_password}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: none
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: false
+        dialect: org.hibernate.dialect.MySQLDialect
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+  servlet:
+    multipart:
+      max-file-size: 20MB
+      max-request-size: 20MB
+
+jwt:
+  secret: ${JWT_SECRET:SmartClinic-Dev-Secret-Change-Me-At-Least-32-Chars-2026}
+  expiration-ms: ${JWT_EXPIRATION_MS:3600000}
+
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+
+logging:
+  level:
+    root: INFO
+    com.smartclinic: INFO
